@@ -45,8 +45,9 @@ Use the copy function below to do the following:
     2. Return the new array that holds an exact copy of the old array  
 */
 
-function copy(/*your code here*/){
-    /*your code here*/
+function copy(original, copy) {
+    copy = [...original]; //this is called "spread operator" it just copies the array.
+    return copy; 
 }    
 
 
@@ -64,8 +65,12 @@ For Example: is31Flavors(originalFlavors) will return true if your code is worki
 */
 
 
-function is31Flavors(/*your code here*/){
-   /*your code here*/
+function is31Flavors(flavors) {
+   if(flavors.length === 31) {
+       return true;
+   } else {
+       return false;
+   }
 }
 
 /* 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀 Task 3: 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀 
@@ -81,8 +86,9 @@ Use the addFlavor function below to do the following:
 */
 
 
-function addFlavor(/*your code here*/){
-   /*your code here*/
+function addFlavor(flavors, newFlavor) {
+    flavors.unshift(newFlavor);
+    return flavors;
 }
 
 
@@ -97,8 +103,9 @@ Use the removeLastFlavor function below to do the following:
     For example: running removeLastFlavor(originalFlavors) would return ["Rainbow Sherbert", "Banana Nut Fudge",..."Vanilla"]
 */
 
-function removeLastFlavor(/*your code here*/){
-   /*your code here*/
+function removeLastFlavor(flavors) {
+    flavors.pop();
+    return flavors;
 }
 
 
@@ -113,9 +120,10 @@ Use the getFlavorByIndex function below to do the following:
     For example: running getFlavorByIndex(originalFlavors, 2) would return "Black Walnut", assuming Rainbow Sherbert has been added successfully
 */
 
-function getFlavorByIndex(/*your code here*/){
-    /*your code here*/
+function getFlavorByIndex(flavors, i) {
+    return flavors[i];
 }
+
 
 
 /*🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀 Task 6: 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀
@@ -127,13 +135,15 @@ Use the removeFlavorByName function below to do the following:
     2. Remove that flavor from the array
     5. Return the resulting array that now contains one less flavor
 
-    For example: running removeFlavorByName(originalFlavors, "Rocky Road") would return an array with the a length of 30 because Rocky Road would have been removed. 
+    For example: running removeFlavorByName(originalFlavo") would return an array with the a length of 30 because Rocky Road would have been removed. 
 
     HINT: You can use .splice() for this
 */
 
-function removeFlavorByName(/*your code here*/){
-    /*your code here*/
+function removeFlavorByName(flavors, removeFlavor) {
+    const removeIndex = flavors.indexOf(removeFlavor);
+    flavors.splice(removeIndex, 1);
+    return flavors;
 }
 
 
@@ -157,8 +167,15 @@ Use the filterByWord function below to do the following:
     DO NOT USE ADVANCED ARRAY METHODS (i.e. .filter) to solve this problem. 
 */
 
-function filterByWord(/*your code here*/){
-    /*your code here*/
+function filterByWord(flavors, type) {
+    let filteredArray = [];
+    let item;
+    for (item of flavors) {
+        if (item.includes(type)) {
+            filteredArray.push(item);
+        }
+    }
+    return filteredArray;
 }
 
 
@@ -174,9 +191,13 @@ Use the getAverageWordLength function below to do the following:
     For example: getAverageWordLength(originalFlavors) should return a number between 0 and 3.     
 */
 
-function getAverageWordLength(/*code here*/){
-    /*code here*/
+function getAverageWordLength(arr){
+    let totalWordCount = 0;
+    arr.forEach(item => totalWordCount += item.split(' ').length);
+    return totalWordCount / arr.length;
 }
+
+console.log(getAverageWordLength(originalFlavors));
 
 
 /* 💪💪💪💪💪💪💪💪💪💪 STRETCH 2: 💪💪💪💪💪💪💪💪💪
@@ -192,9 +213,20 @@ Use the getRandomFlavors function and new arrays below to do the following:
 */
 
 
-function getRandomFlavors(/*code here*/){
-    /*code here*/
+function getRandomFlavors(originalFlav, newFlav, seasonalFlav, regionalFlav){
+    let randomIndex = 0;
+    let randomListIndex = 0;
+    let randomFlavors = [];
+    const flavorLists = [originalFlav, newFlav, seasonalFlav, regionalFlav];
+    for (let i = 0; i < 31; i++) {
+        randomListIndex = Math.floor(Math.random() * 4);
+        randomIndex = Math.floor(Math.random() * flavorLists[randomListIndex].length);
+        randomFlavors.push(flavorLists[randomListIndex][randomIndex]);
+        flavorLists[randomListIndex].splice(randomIndex, 1);
+    }
+    return randomFlavors;
 }
+
 
 // NEW DATA ARRAYS FOR STRETCH 2 ⬇️
 const newFlavors = [
@@ -277,6 +309,7 @@ const regionalFlavors = [
     "Caramel 'n' Cookies"
 ]
 
+console.log(getRandomFlavors(originalFlavors, newFlavors, seasonalFlavors, regionalFlavors));
 
 
 /* 🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑 Please do not modify anything below this line 🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑 */
